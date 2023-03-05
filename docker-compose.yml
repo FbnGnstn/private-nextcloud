@@ -1,0 +1,21 @@
+version: '3.2'
+services:
+
+###################
+# NEXTCLOUD STACK #
+###################
+  app:
+    image: nextcloud:25
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    depends_on:
+      - nextcloud_mariadb
+      - cache
+
+  db:
+    image: mariadb:10
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    command: ['--innodb_read_only_compressed=OFF']
